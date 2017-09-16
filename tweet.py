@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import configparser
 import getopt
 import os
 import sys
