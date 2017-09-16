@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-'''Post a message to twitter'''
-
-__author__ = 'dewitt@google.com'
-
 import configparser
 import getopt
 import os
@@ -11,10 +7,7 @@ import sys
 import schedule
 import time
 import krakenex
-import networkx as nx
-import newspaper
 from datetime import date
-#import urllib2
 import twitter
 
 x = 0
@@ -44,42 +37,8 @@ def tweet():
     sys.exit(2)
   print("%s just posted: %s" % (status.user.name, status.text))
 
-def news():
-    paper = newspaper.build('http://www.coindesk.com', memoize_articles=False)
-    print(paper.size())
-    #print(paper.articles[0].decode())
-    for article in paper.articles:
-        try:
-            article.download()
-            article.parse()
-            print(str(article.text, 'utf-8'))
-            if "bitcoin" in article.text.decode().lower() or "ethereum" in article.text.decode().lower() or "blockchain" in article.text.decode().lower():
-                print("Okay")
-                if 2 > 1:#"Digital Cash" in article.text.decode() or "Digital cash" in article.text.decode() or "digital cash" in article.text.decode():
-                    api = twitter.Api(consumer_key='Ftv26M5zL6vDQAuzxRF2EBnnm',
-                                     consumer_secret='yiQJcB1iicL28qE4utx4fuUhaBEGgF9n33J88lDfHz0b5bpk06',
-                                     access_token_key='878690810409222145-vAvH0BEWRgYRcEBIOUrjTxrx11e1TEo',
-                                     access_token_secret='dnoFxSJ113k4STzptxyQTvBtdyvwWJqlhsW8e6cPEUlsa')
-                    try:
-                        status = api.PostUpdate(article.title + "\n\n" + article.url)
-                    except UnicodeDecodeError:
-                        print("Your message could not be encoded.  Perhaps it contains non-ASCII characters? ")
-                        print("Try explicitly specifying the encoding with the --encoding flag")
-                        sys.exit(2)
-                    print("%s just posted: %s" % (status.user.name, status.text))
-                else:
-                    pass
-            else:
-               pass
-        except:
-            pass
-
 schedule.every().hours.do(tweet)
-schedule.every().minutes.do(news)
-#tweet()
+
 while True:
     schedule.run_pending()
-    time.sleep(60) # wait one minute
-
-#if __name__ == "__main__":
-#  main()
+    time.sleep(60) 
