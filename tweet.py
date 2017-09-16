@@ -21,7 +21,7 @@ x = 0
 
 def tweet():
   global x
-  k = krakenex.API(key='VKF3XuOWoPFWb5Q8IddE5E6ZVFGk4976P3RJUMfmdzn29r2alC6F7vbL', secret='NR0rXUvh5f7heTNs85j64e/8itxL5CX31nYq5kyD1Y5+4u82waq3NQfeBNCLuDQnJYth2Jp5l7BAvJ2zGRzoOQ==')
+  k = krakenex.API(key='API_Key', secret='SECRET_Key')
   #c = krakenex.Connection(uri='https://api.kraken.com/0/public/Spread?pair=DASHUSD', timeout=30)
   price = k.query_public('Ticker',{'pair': 'DASHUSD'})
   print(price['result']['DASHUSD']['a'][0])
@@ -32,10 +32,10 @@ def tweet():
        pop = (1 - x/float(price['result']['DASHUSD']['a'][0])) * 100
        message = 'DASH price: %.2f (+%.2f%%)\n\n%s' % (float(price['result']['DASHUSD']['a'][0]), pop, time.ctime())
   x = float(price['result']['DASHUSD']['a'][0])
-  api = twitter.Api(consumer_key='Ftv26M5zL6vDQAuzxRF2EBnnm',
-                        consumer_secret='yiQJcB1iicL28qE4utx4fuUhaBEGgF9n33J88lDfHz0b5bpk06',
-                        access_token_key='878690810409222145-vAvH0BEWRgYRcEBIOUrjTxrx11e1TEo',
-                        access_token_secret='dnoFxSJ113k4STzptxyQTvBtdyvwWJqlhsW8e6cPEUlsa')
+  api = twitter.Api(consumer_key='C_Key',
+                        consumer_secret='C_Secret',
+                        access_token_key='Token_Key',
+                        access_token_secret='Token_Secret')
   try:
     status = api.PostUpdate(message)
   except UnicodeDecodeError:
